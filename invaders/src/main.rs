@@ -59,23 +59,29 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     });
 
-    //let instant = Instant::now();
+    let mut instant = Instant::now();
     let mut curr_frame;
     let mut player = Player::new();
-    let mut enemy = Enemy::new();
+    let enemy = Enemy::new();
     
 
     // GAMEPLAY LOOP
     'gameloop: loop {
-        //let delta = instant.elapsed();
+        let delta = instant.elapsed();
+        instant = Instant::now();
         curr_frame = frame::new_frame();
         
         //input
-        while event::poll(Duration::from_secs(0))? {
+        while event::poll(Duration::default())? {
             if let Event::Key(key_event) = event::read().unwrap() {
                 match key_event.code {
                     KeyCode::Left => player.move_left(),
                     KeyCode::Right => player.move_right(),
+                    KeyCode::Char(' ') | KeyCode::Enter => {
+                        if player.shoot() {
+                            audio.play("pew");
+                        }
+                    }
                     KeyCode::Esc | KeyCode::Char('Q') => {
                         audio.play("lose");
                         break 'gameloop;
@@ -84,6 +90,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             }
         }
+
+        // UPDATE
+        player.update(delta);
 
         // DRAW & RENDER
         player.draw(&mut curr_frame);

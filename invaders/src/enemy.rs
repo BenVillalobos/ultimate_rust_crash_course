@@ -12,7 +12,7 @@ impl Enemy {
     pub fn new() -> Self {
         Self {
             x: NUM_COLS/2,
-            y: 0,
+            y: 1,
         }
     }
 }
