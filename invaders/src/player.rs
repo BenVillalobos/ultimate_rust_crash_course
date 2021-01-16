@@ -1,3 +1,4 @@
+use crate::invader::Invaders;
 use core::time::Duration;
 use crate::shot::Shot;
 use crate::NUM_ROWS;
@@ -46,6 +47,20 @@ impl Player {
         }
         // Remove dead shots by keeping live shots.
         self.shots.retain(|s| !s.dead());
+    }
+
+    pub fn detect_hits(&mut self, invaders: &mut Invaders) -> bool{
+        let mut hit = false;
+        for shot in self.shots.iter_mut() {
+            if !shot.exploding {
+                if invaders.kill_invader_at(shot.x, shot.y) {
+                    hit = true;
+                    shot.explode();
+                }
+            }
+        }
+
+        hit
     }
 }
 

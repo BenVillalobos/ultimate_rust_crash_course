@@ -1,7 +1,7 @@
 pub mod frame;
 pub mod render;
 pub mod player;
-pub mod enemy;
+pub mod invader;
 pub mod shot;
 
 pub const NUM_ROWS: usize = 20;
