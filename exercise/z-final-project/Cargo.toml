@@ -1,9 +1,10 @@
 [package]
-name = "mirage"
+name = "imgproc"
 version = "0.1.0"
-authors = ["Nathan Stocks <nathan.stocks@gmail.com>"]
+authors = ["Ben Villalobos <4691428+BenVillalobos@users.noreply.github.com>"]
 edition = "2018"
 
 [dependencies]
-image = "0.21.1"
-num-complex = "0.2.1"
+image = "0.23.12"
+num-complex = "0.3.1"
+clap = "2.33.3"
